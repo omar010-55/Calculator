@@ -22,15 +22,23 @@ let firstNumber = " "
 let operator = ""
 let secondNumber = " "
 
-let all = 0
+
+function reset() {
+  isOperatorClicked = false
+  isEqualRun = false 
+  firstNumber = " "
+  operator = ""
+  secondNumber = " "
+  refreshScreen(0)
+}
 
 function operate(numOne, op , numTwo) { //Doing operations
   if(op === "+") {
-    firstNumber = add(numOne,numTwo).toFixed(2)
+    firstNumber = add(numOne,numTwo)
   } else if(op === "-") {
-    firstNumber = subtract(numOne,numTwo).toFixed(2)
+    firstNumber = subtract(numOne,numTwo)
   } else if(op === "*") {
-    firstNumber = multiply(numOne,numTwo).toFixed(2)
+    firstNumber = multiply(numOne,numTwo)
   } else {
     firstNumber = divide(numOne,numTwo).toFixed(2)
   }
@@ -60,15 +68,15 @@ allNumbers.addEventListener("click", function(e) { //Sign the numbers
       refreshScreen(firstNumber)
     }
   } else if(e.target.className === "operate" && isOperatorClicked === false) {
-    
     operator += `${e.target.id}`
     isOperatorClicked = true
     isEqualRun = false
-    
   } else if(e.target.className === "equality") {
     if(isOperatorClicked === true && secondNumber !== " ") {
       operate(firstNumber, operator, secondNumber)
       isEqualRun = true
     }
+  } else if(e.target.className === "reset") {
+    reset()
   }
 })
