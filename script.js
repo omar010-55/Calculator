@@ -67,7 +67,7 @@ allNumbers.addEventListener("click", function(e) { //Sign the numbers
       }
       refreshScreen(firstNumber)
     }
-  } else if(e.target.className === "operate" && isOperatorClicked === false) {
+  } else if(e.target.className === "operate" && isOperatorClicked === false && firstNumber !== " ") {
     operator += `${e.target.id}`
     isOperatorClicked = true
     isEqualRun = false
