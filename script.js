@@ -14,6 +14,8 @@ function divide(a, b) {
   return +a / +b
 }
 
+let isOperatorClicked = false
+
 let isEqualRun = false 
 
 let firstNumber = " "
@@ -24,37 +26,49 @@ let all = 0
 
 function operate(numOne, op , numTwo) { //Doing operations
   if(op === "+") {
-    firstNumber = add(numOne,numTwo)
+    firstNumber = add(numOne,numTwo).toFixed(2)
   } else if(op === "-") {
-    firstNumber = subtract(numOne,numTwo)
+    firstNumber = subtract(numOne,numTwo).toFixed(2)
   } else if(op === "*") {
-    firstNumber = multiply(numOne,numTwo)
+    firstNumber = multiply(numOne,numTwo).toFixed(2)
   } else {
-    firstNumber = divide(numOne,numTwo)
+    firstNumber = divide(numOne,numTwo).toFixed(2)
   }
+  isOperatorClicked = false
   operator = ""
   secondNumber = " "
-  refreshScreen()
+  refreshScreen(firstNumber)
 }
 // operate(1 , "+", 2)
 let screen = document.querySelector("p")
-function refreshScreen() { //Refreshing the screen and 
-  screen.textContent = `${firstNumber} ${operator} ${secondNumber}` 
+function refreshScreen(pressed) { //Refreshing the screen and
+  screen.textContent = `${pressed}` 
 }
 
 let allNumbers = document.querySelector(".allNumbers") 
 allNumbers.addEventListener("click", function(e) { //Sign the numbers
   if(e.target.className === "number") {
-    if(operator !== "") {
+    if(isOperatorClicked === true) {
       secondNumber += `${e.target.id}`
+      refreshScreen(secondNumber)
     } else {
-      firstNumber += `${e.target.id}`
+      if(isEqualRun === false) {
+        firstNumber += `${e.target.id}`
+      } else {
+        firstNumber = `${e.target.id}` 
+      }
+      refreshScreen(firstNumber)
     }
-    refreshScreen()
-  } else if(e.target.className === "operate" && operator === "") {
+  } else if(e.target.className === "operate" && isOperatorClicked === false) {
+    
     operator += `${e.target.id}`
-    refreshScreen()
+    isOperatorClicked = true
+    isEqualRun = false
+    
   } else if(e.target.className === "equality") {
-    operate(firstNumber, operator, secondNumber)
+    if(isOperatorClicked === true && secondNumber !== " ") {
+      operate(firstNumber, operator, secondNumber)
+      isEqualRun = true
+    }
   }
 })
