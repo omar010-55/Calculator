@@ -11,6 +11,7 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
+  if(+b === 0) {return "LoL"}
   return +a / +b
 }
 
@@ -66,6 +67,7 @@ allNumbers.addEventListener("click", function(e) { //Sign the numbers
         refreshScreen(firstNumber)
       } else {
         firstNumber = `${e.target.id}`
+        isEqualRun = false
         refreshScreen(firstNumber)
       }
       // refreshScreen(firstNumber)
