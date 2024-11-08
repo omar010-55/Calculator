@@ -1,37 +1,48 @@
 * {
+  box-sizing: border-box;
   margin: 0;
   border: 0;
 }
 
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+}
+
 .theCulc {
-  width: 30rem;
-  height: 42rem;
+  width: 23rem;
+  height: 32rem;
   background-color: gray;
   display: flex;
   flex-wrap: wrap;
   margin: auto;
+  border: 10px solid #383636;
 }
 .theScreen {
-  height: 125px;
-  background-color: chocolate;
+  height: 102px;
+  background-color: #a0a4aa;
   width: 100%;
-  margin-top: 15%;
-  border: 16px solid;
-  font-size: 60px;
+  border: 7px solid;
+  font-size: 71px;
   display: flex;
   align-items: end;
   justify-content: end;
-  padding: 10px;
+  padding: 5px;
 }
 .allNumbers {
   display: flex;
   flex-wrap: wrap;
   flex: 1;
+  height: 79%;
 }
 button {
   flex: 1;
   flex-basis: 21%;
-  font-size: 30px;
-  margin: 2%;
-  border-radius: 10px;
+  font-size: 50px;
+  margin: 1px;
+  border-radius: 5px;
+  background-color: #07d7e7;
 }

@@ -58,10 +58,10 @@ function refreshScreen(pressed) { //Refreshing the screen and
 let allNumbers = document.querySelector(".allNumbers") 
 allNumbers.addEventListener("click", function(e) { //Sign the numbers
   if(e.target.className === "number") {
-    if(isOperatorClicked === true && secondNumber.toString().length < 10) {
+    if(isOperatorClicked === true && secondNumber.toString().length < 9) {
       secondNumber += `${e.target.id}`
       refreshScreen(secondNumber)
-    } else if(firstNumber.toString().length < 10) {
+    } else if(firstNumber.toString().length < 9) {
       if(isEqualRun === false) {
         firstNumber += `${e.target.id}`
         refreshScreen(firstNumber)
