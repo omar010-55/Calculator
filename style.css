@@ -26,7 +26,7 @@
   background-color: #a0a4aa;
   width: 100%;
   border: 7px solid;
-  font-size: 71px;
+  font-size: 72px;
   display: flex;
   align-items: end;
   justify-content: end;
@@ -45,4 +45,8 @@ button {
   margin: 1px;
   border-radius: 5px;
   background-color: #07d7e7;
+}
+
+.equality {
+  order: 1;
 }
