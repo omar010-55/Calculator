@@ -50,3 +50,7 @@ button {
 .equality {
   order: 1;
 }
+
+.del {
+  order: 2;
+}
