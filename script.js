@@ -41,7 +41,7 @@ function operate(numOne, op , numTwo) {  //Doing operations based on op content
   } else if(op === "-") {
     firstNumber = Math.round(subtract(numOne,numTwo)*100000000) / 100000000
   } else if(op === "*") {
-    firstNumber = multiply(numOne,numTwo)
+    firstNumber = Math.round(multiply(numOne,numTwo)*10000) / 10000
   } else {
     firstNumber = Math.round(divide(numOne,numTwo)*100000000) / 100000000
   }
@@ -87,7 +87,11 @@ allNumbers.addEventListener("click", function(e) {  //Sign the numbers an all cl
         refreshScreen(firstNumber)
       }
     }
-  } else if(e.target.className === "operate" && isOperatorClicked === false && firstNumber !== "") {  //First time to click operate
+  } else if(e.target.className === "operate" && firstNumber !== "") {  //First time to click operate
+    if(isOperatorClicked === true && secondNumber !== "") {
+      isSecondNumberClicked = false //To delete the first number which will be the last add or returned
+      operate(firstNumber, operator, secondNumber)
+    }
     operator += `${e.target.id}`
     isOperatorClicked = true
     isEqualRun = false
@@ -148,7 +152,11 @@ window.addEventListener("keydown", (e) => {
         refreshScreen(firstNumber)
       }
     }
-  } else if(listOfOperatores.includes(e.key) && isOperatorClicked === false && firstNumber !== "") {  //First time to click operate
+  } else if(listOfOperatores.includes(e.key) && firstNumber !== "") {  //First time to click operate
+    if(isOperatorClicked === true && secondNumber !== "") {
+      isSecondNumberClicked = false //To delete the first number which will be the last add or returned
+      operate(firstNumber, operator, secondNumber)
+    }
     operator += `${e.key}`
     isOperatorClicked = true
     isEqualRun = false
