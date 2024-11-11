@@ -113,3 +113,54 @@ function del() {  //Delete button logic
     return refreshScreen(firstNumber)
   }
 }
+
+// Keyboard Support
+
+const listOfNumbers = ["0","1","2","3","4","5","6","7","8","9","."]
+const listOfOperatores = ["+","-","*","/"]
+window.addEventListener("keydown", (e) => {
+  if(listOfNumbers.includes(e.key)) {
+    if(isOperatorClicked === true && secondNumber.toString().length < 9) {  //To sign the second number based on condition
+      if(e.key === ".") {  //For the Dot logic its here to obey the previous roles of if
+        if(!secondNumber.split("").includes(".")) {  //To not applying two dots ..
+          isSecondNumberClicked = true
+          secondNumber += `${e.key}`
+          return refreshScreen(secondNumber)
+        } else return  //End and don't sign it
+      }
+      isSecondNumberClicked = true
+      secondNumber += `${e.key}`  //If it's normal number not the dot "." then do the normal actions
+      refreshScreen(secondNumber)
+    } else if(firstNumber.toString().length < 9) {  //Limit to 9
+      if(isEqualRun === false) {  //If equal not clicked act normal
+        if(e.key === ".") {
+          if(!firstNumber.split("").includes(".")) {
+            firstNumber += `${e.key}`
+            return refreshScreen(firstNumber)
+          } else return
+        }
+        firstNumber += `${e.key}`
+        refreshScreen(firstNumber)
+      } else {  //If equal clicked reset firstNumber value after clicking numbers or dot again
+        // isSecondNumberClicked = false
+        firstNumber = `${e.key}`
+        isEqualRun = false  //Reset this logic
+        refreshScreen(firstNumber)
+      }
+    }
+  } else if(listOfOperatores.includes(e.key) && isOperatorClicked === false && firstNumber !== "") {  //First time to click operate
+    operator += `${e.key}`
+    isOperatorClicked = true
+    isEqualRun = false
+  } else if(e.key === "Enter" || e.key === "=") {
+    if(isOperatorClicked === true && secondNumber !== "") {  //To not have Errors
+      isSecondNumberClicked = false //To delete the first number which will be the last add or returned
+      operate(firstNumber, operator, secondNumber)
+      isEqualRun = true
+    }
+  } else if(e.key === "c" || e.key === "Escape") {
+    reset()
+  } else if(e.key === "Backspace") {
+    del()
+  }
+})
