@@ -11,7 +11,6 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
-  if(+b === 0) {return "LoL"}  //Divide by 0 safety
   return +a / +b
 }
 
@@ -20,11 +19,14 @@ let isOperatorClicked = false
 let isEqualRun = false 
 
 let firstNumber = ""
+
 let operator = ""
+
 let secondNumber = ""
 
 let isSecondNumberClicked = false
 
+  // Reset All Values //
 function reset() {  //Reset all operations and variables
   isOperatorClicked = false
   isEqualRun = false 
@@ -35,6 +37,7 @@ function reset() {  //Reset all operations and variables
   refreshScreen(0)
 }
 
+  // The main Operation Func //
 function operate(numOne, op , numTwo) {  //Doing operations based on op content
   if(op === "+") {
     firstNumber = add(numOne,numTwo)
@@ -44,6 +47,19 @@ function operate(numOne, op , numTwo) {  //Doing operations based on op content
     firstNumber = Math.round(multiply(numOne,numTwo)*10000) / 10000
   } else {
     firstNumber = Math.round(divide(numOne,numTwo)*100000000) / 100000000
+    if(+numTwo === 0) {  //Divide by 0 safety
+      firstNumber = "Zero LOL!"
+      refreshScreen(firstNumber)
+      isOperatorClicked = false
+      isEqualRun = false 
+      isSecondNumberClicked = false
+      firstNumber = ""
+      operator = ""
+      secondNumber = ""
+      return
+    } else {
+      firstNumber = Math.round(divide(numOne,numTwo)*100000000) / 100000000
+    }
   }
   firstNumber = firstNumber.toString().slice(0, 9)  //Limit to 9 numbers
   isOperatorClicked = false
@@ -51,11 +67,14 @@ function operate(numOne, op , numTwo) {  //Doing operations based on op content
   secondNumber = ""
   refreshScreen(firstNumber)
 }
+
+  // To Refresh The Screen //
 let screen = document.querySelector("p")
 function refreshScreen(pressed) {  //Refreshing the screen
   screen.textContent = `${pressed}` 
 }
 
+  // All Buttons in One Event Listener //
 let allNumbers = document.querySelector(".allNumbers")
 allNumbers.addEventListener("click", function(e) {  //Sign the numbers an all clicked buttons with checking the class and applying id
   if(e.target.className === "number") {
@@ -108,6 +127,7 @@ allNumbers.addEventListener("click", function(e) {  //Sign the numbers an all cl
   }
 })
 
+  // Delete Func //
 function del() {  //Delete button logic
   if(isSecondNumberClicked === true) {
     secondNumber = secondNumber.toString().slice(0,-1)
@@ -118,8 +138,7 @@ function del() {  //Delete button logic
   }
 }
 
-// Keyboard Support
-
+  // Keyboard Support //
 const listOfNumbers = ["0","1","2","3","4","5","6","7","8","9","."]
 const listOfOperatores = ["+","-","*","/"]
 window.addEventListener("keydown", (e) => {
